@@ -29,15 +29,48 @@ public class ShowTable extends HttpServlet {
         list = picsOnly(list);
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        out.print("<h1>Duomenu bazes nuotraukos</h1>");
-        StringBuilder builder = new StringBuilder();
-        builder.append("<table>");
-        for(ImageEntity pic : list){
-            builder.append("<tr><td><img src=\""+ "file:///" +pic.getPath()+"\" /></td></tr>");
-        }
-        builder.append("</table>");
+        StringBuilder builder = buildHTML(list);
         out.print(builder.toString());
     }//out/artifacts/softneta_war_exploded/WEB-INF/classes/static/images/web1.png
+
+    private StringBuilder buildHTML(List<ImageEntity> list){
+        int n = 0;
+        StringBuilder builder = new StringBuilder();
+        builder.append("<head>");
+        builder.append("  <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">" +
+                "  <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>" +
+                "  <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>");
+        builder.append("</head>");
+        builder.append("<body>");
+        builder.append("<h1>Duomenu bazes nuotraukos</h1>");
+        builder.append("<div class=\"panel-group\" id=\"accordion\">");
+        for(ImageEntity pic : list){
+            n++;
+            builder.append("<div class=\"panel panel-default\">" +
+                    "      <div class=\"panel-heading\">" +
+                    "        <h4 class=\"panel-title\">" +
+                    "          <a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapse"+n+"\">"+pic.getContentdate()+"</a>" +
+                    "        </h4>" +
+                    "      </div>");
+            builder.append("<div id=\"collapse"+n+"\" class=\"panel-collapse collapse in\"><div class=\"panel-body\">");
+
+            builder.append("<img src=\""+ "file:///" +pic.getPath()+"\" />");
+            builder.append("<table>");
+            builder.append("<tr>"+ "<td>"+"Date"+"</td><td colspan=\"3\">"+pic.getContentdate()+"</td>" +"<tr>");
+            builder.append("<tr>"+ "<td>"+"UUid"+"</td><td colspan=\"3\">"+pic.getUuid()+"</td>" +"<tr>");
+            builder.append("<tr>"+ "<td>"+"Acquisition Date"+"</td><td colspan=\"3\">"+pic.getAcquisitiondate()+"</td>" +"<tr>");
+            builder.append("<tr>"+ "<td>"+"Acquisition Time"+"</td><td colspan=\"3\">"+pic.getAcquisitiontime()+"</td>" +"<tr>");
+            builder.append("<tr>"+ "<td>"+"Algorithm"+"</td><td colspan=\"3\">"+pic.getAlgorithm()+"</td>" +"<tr>");
+            builder.append("<tr>"+ "<td>"+"Bits allocated"+"</td><td colspan=\"3\">"+pic.getBitsallocated()+"</td>" +"<tr>");
+            builder.append("<tr>"+ "<td>"+"Completion"+"</td><td colspan=\"3\">"+pic.getCompletion()+"</td>" +"<tr>");
+            builder.append("<tr>"+ "<td>"+"Description"+"</td><td colspan=\"3\">"+pic.getDescription()+"</td>" +"<tr>");
+            builder.append("</table>");
+            builder.append("</div>" +"</div>");
+        }
+        builder.append("</div>");
+        builder.append("</body>");
+        return builder;
+    }
 
     private List<ImageEntity> picsOnly(List<ImageEntity> list){
         List<ImageEntity> edited = new ArrayList<ImageEntity>();
