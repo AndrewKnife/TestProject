@@ -1,0 +1,19 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="softneta:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/softneta_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="softneta/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="softneta" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.xerial:sqlite-jdbc:3.8.11.2" />
+          <element id="library" level="project" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.1.Final" />
+          <element id="library" level="project" name="Maven: org.hibernate:hibernate-core:4.1.4.Final" />
+          <element id="library" level="project" name="Maven: org.hibernate.common:hibernate-commons-annotations:4.0.1.Final" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
