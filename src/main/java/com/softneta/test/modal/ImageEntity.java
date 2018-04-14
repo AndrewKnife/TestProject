@@ -1,11 +1,13 @@
 package com.softneta.test.modal;
 
+import com.softneta.test.modal.sqlite.ITables;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity(name = "image")
 @Table(name = "image", schema = "main")
-public class ImageEntity {
+public class ImageEntity implements ITables {
     private String uuid;
     private String sopclass;
     private String seriesuid;

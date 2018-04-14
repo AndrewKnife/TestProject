@@ -2,6 +2,9 @@ package com.softneta.test.modal.sqlite;
 
 
 import com.softneta.test.modal.ImageEntity;
+import com.softneta.test.modal.PatientEntity;
+import com.softneta.test.modal.SeriesEntity;
+import com.softneta.test.modal.StudyEntity;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -28,6 +31,8 @@ public class SQLiteCommands {
         }
         catch (HibernateException he)
         {
+            System.out.println("*****************");
+            System.out.println(he.toString());
             throw new ExceptionInInitializerError(he);
         }
     }
@@ -48,9 +53,68 @@ public class SQLiteCommands {
         } catch (Exception ex) {
             ex.printStackTrace();
             tx.rollback();
+
         }
         return pictureList;
     }
 
+    public List<PatientEntity> getPatientList(){
+        configureSessionFactory();
 
+        Session session = null;
+        Transaction tx=null;
+
+        List<PatientEntity> patientList = new ArrayList<PatientEntity>();
+
+        try {
+            session = sessionFactory.openSession();
+            tx = session.beginTransaction();
+
+            patientList = session.createQuery("from patient").list();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            tx.rollback();
+        }
+        return patientList;
+    }
+
+    public List<SeriesEntity> getSeriesList(){
+        configureSessionFactory();
+
+        Session session = null;
+        Transaction tx=null;
+
+        List<SeriesEntity> seriesList = new ArrayList<SeriesEntity>();
+
+        try {
+            session = sessionFactory.openSession();
+            tx = session.beginTransaction();
+
+            seriesList = session.createQuery("from series").list();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            tx.rollback();
+        }
+        return seriesList;
+    }
+
+    public List<StudyEntity> getStudyList(){
+        configureSessionFactory();
+
+        Session session = null;
+        Transaction tx=null;
+
+        List<StudyEntity> studyList = new ArrayList<StudyEntity>();
+
+        try {
+            session = sessionFactory.openSession();
+            tx = session.beginTransaction();
+
+            studyList = session.createQuery("from study").list();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            tx.rollback();
+        }
+        return studyList;
+    }
 }
